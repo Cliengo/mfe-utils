@@ -1,0 +1,13 @@
+{
+  "name": "@cliengo/mfe-utils",
+  "version": "0.4.5",
+  "exports": {
+    "./mod": "./mod.ts",
+    "./types": "./types/index.ts",
+    "./hooks": "./hooks/index.ts",
+    "./utils": "./utils/index.ts",
+    "./theme": "./theme/index.ts",
+    "./services": "./services/index.ts"
+  },
+  "license": "MIT"
+}

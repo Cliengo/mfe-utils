@@ -1,0 +1,37 @@
+{
+  "name": "mfe-utils",
+  "version": "1.0.0",
+  "description": "common utils for developing MFEs at cliengo",
+  "main": "index.ts",
+  "author": "Daniel Gomez",
+  "license": "MIT",
+  "private": true,
+  "exports": {
+    "./mod": "./mod.ts",
+    "./types": "./types/index.ts",
+    "./hooks": "./hooks/index.ts",
+    "./utils": "./utils/index.ts",
+    "./theme": "./theme/index.ts",
+    "./services": "./services/index.ts"
+  },
+  "scripts": {
+    "publish": "npx jsr publish --allow-slow-types"
+  },
+  "peerDependencies": {
+    "@mui/material": "^6.1.5",
+    "@tanstack/react-query": "^5.59.15",
+    "axios": "^1.7.7",
+    "react-router-dom": "^6.27.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@mui/material": "^6.1.5",
+    "@tanstack/react-query": "^5.59.16",
+    "@types/node": "^22.7.9",
+    "axios": "^1.7.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0"
+  }
+}
