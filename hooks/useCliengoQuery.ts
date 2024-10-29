@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getCliengoService } from '../services/cliengo.service';0
+import { getCliengoService } from '../services/cliengo.service';
 
 export enum CliengoQueryKey {
   user = 'user',
