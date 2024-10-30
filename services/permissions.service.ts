@@ -33,6 +33,10 @@ export class PermissionsService {
     return required.some((p) => this.permissions.has(p));
   }
 
+  public isAdmin() {
+    return this.hasOneOf(['admin', 'reseller_admin']);
+  }
+
   public getPermissions() {
     return this.permissions;
   }
