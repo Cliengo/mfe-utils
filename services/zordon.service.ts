@@ -46,6 +46,14 @@ export class ZordonService {
     return response.data as ZordonConfig;
   }
 
+  public async deleteChatbot(websiteId: string) {
+    const response = await this.http.delete<{
+      message: string;
+    }>(`/1.0/chatbot-config/${websiteId}`);
+
+    return response.data;
+  }
+
 
   /**
    * @query
