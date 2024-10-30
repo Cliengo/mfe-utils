@@ -22,6 +22,31 @@ export class ZordonService {
     await this.http.get(`/context/uncache/${websiteId}`);
   }
 
+  public async createChatbot(args: {
+    url: string;
+    businessName: string;
+    hasIA?: boolean;
+    lang?: 'Español' | 'Inglés';
+  }) {
+    const { url, businessName, hasIA } = args;
+
+    let path = '/1.0/setup-genia';
+
+    if (hasIA) {
+      path += '?cliengoIA=true';
+    }
+
+    const response = await this.http.post<{
+      websiteId: string;
+    }>(path, {
+      url,
+      businessName,
+    });
+
+    return response.data as ZordonConfig;
+  }
+
+
   /**
    * @query
    */
