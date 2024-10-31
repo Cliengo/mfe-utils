@@ -67,7 +67,7 @@ const stage = {
   MFE_IFRAME_HSM: 'https://www.hsm-manager.stagecliengo.com',
   MFE_IFRAME_LIT: 'https://genia-live.stagecliengo.com/live/history',
   MFE_IFRAME_TRIGGERS: 'https://www.triggers.stagecliengo.com/triggers',
-  MOZART_WEBHOOK_URL: 'https://stage-mozart.stagecliengo.com/api/job',
+  MOZART_WEBHOOK_URL: 'https://mozart-webhook.stagecliengo.com/api/job',
   OAUTH_LOGIN_URL: 'https://app.stagecliengo.com/oauthlogin',
   REDIRECT_LOGOUT_URL: 'https://www.cliengo.com/',
   SCROP_URL: 'https://stage-scrop-11f6a1c4fb21.herokuapp.com',
