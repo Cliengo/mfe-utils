@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { Account, AccountPlan, ChatWidgetConfig, User, Website } from '../types';
+import { Account, AccountPlan, ChatbotConfig, ChatWidgetConfig, User, Website } from '../types';
 import { getUrls } from '../utils/urls';
 import { Channels } from '../types/enums';
 
@@ -84,6 +84,14 @@ export class CliengoService {
     );
 
     return response.data;
+  }
+
+  public async setConversationBlocks(websiteId: string, blocks: string[]) {
+    const response = await this.http.post(`/projects/question-block/set-blocks/${websiteId}`, {
+      blocks,
+    });
+
+    return response.data as ChatbotConfig;
   }
 
   /**
