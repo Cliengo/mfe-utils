@@ -35,6 +35,7 @@ const prod = {
   TS_API_URL: 'https://technical-solutions-api.devcliengo.com',
   WEBO_URL: 'https://s.cliengo.com/weboptimizer',
   ZORDON_URL: 'https://zordon.cliengo.com/api',
+  DASH_URL: 'https://dash.cliengo.com',
 };
 
 const stage = {
