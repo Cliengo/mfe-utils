@@ -33,3 +33,9 @@ export const getQueryClient = (client?: QueryClient) => {
 
   return QueryClientSingleton.getInstance().getClient();
 }
+
+export const invalidateQuery = (queryKey: string[]) => {
+  return getQueryClient().invalidateQueries({
+    queryKey,
+  });
+};
