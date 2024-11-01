@@ -1,5 +1,5 @@
 export enum Channels {
-  WEB = 'WEB',
+  WEB = 'WEBSITE',
   WHATSAPP = 'WHATSAPP',
   FACEBOOK = 'FACEBOOK',
   INSTAGRAM = 'INSTAGRAM',

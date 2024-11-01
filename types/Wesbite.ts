@@ -20,4 +20,5 @@ export interface Website {
   type?: Channels;
   isWhatsAppChat: boolean;
   externalId?: string;
+  whatsappNumber? : string;
 }
