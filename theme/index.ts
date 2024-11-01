@@ -33,7 +33,7 @@ export const theme: Theme = createTheme({
     },
     secondary: colors.secondary,
     background: {
-      default: '#F7F6FD',
+      default: '#FAFAFA',
     },
     divider: 'rgba(0, 0, 0, 0.23)',
   },
@@ -42,6 +42,9 @@ export const theme: Theme = createTheme({
       styleOverrides: {
         '*': {
           fontFamily: 'Inter Variable, Inter, sans-serif',
+        },
+        'body': {
+          backgroundColor: '#FAFAFA',
         },
         '.material-icons': {
           marginBottom: '0.25rem',
