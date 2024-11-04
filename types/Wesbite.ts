@@ -17,7 +17,7 @@ export interface Website {
   autoAssign: unknown[];
   wavyAccessToken?: string;
   fbPageAccessToken?: string;
-  type?: Channels;
+  type?: Channels | string;
   isWhatsAppChat: boolean;
   externalId?: string;
   whatsappNumber? : string;
