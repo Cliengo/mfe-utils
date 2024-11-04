@@ -4,3 +4,4 @@ export * from './useCurrentWebsite';
 export * from './useCustomEvent';
 export * from './useDisclosure';
 export * from './useWebsiteId';
+export * from './useBreadcrumbs';
