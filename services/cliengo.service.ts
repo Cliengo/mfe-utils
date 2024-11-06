@@ -3,6 +3,18 @@ import { Account, AccountPlan, ChatbotConfig, ChatWidgetConfig, User, Website } 
 import { getUrls } from '../utils/urls';
 import { Channels } from '../types/enums';
 
+type PathsToStringProps<T> = T extends object ? {
+  [K in keyof T]: T[K] extends Array<any>
+  ? `${K & string}` | `${K & string}.${keyof T[K][0] & string}`
+  : T[K] extends object
+  ? `${K & string}` | `${K & string}.${keyof T[K] & string}`
+  : `${K & string}`;
+}[keyof T] : never;
+
+type ChatbotConfigPath = PathsToStringProps<ChatbotConfig>;
+
+
+
 export class CliengoService {
   http: AxiosInstance;
 
@@ -131,6 +143,80 @@ export class CliengoService {
     return data.getChatbotConfig[0].question_list.some(
       (q) => q.fulfillment_url === fulfillment_url
     );
+  }
+
+  /**
+ * @query
+ */
+  public async getFromChatbotConfig<T extends ChatbotConfigPath>(
+    websiteId: string,
+    fields: T[]
+  ) {
+    const fieldsString = fields.map(field => {
+      const parts = field!.toString().split('.');
+      if (parts.length === 1) return field;
+
+      return `${parts[0]} { ${parts[1]} }`;
+    }).join('\n');
+
+    const response = await this.http({
+      url: '/projects/graphql',
+      method: 'POST',
+      withCredentials: true,
+      data: {
+        query: `
+        query GetChatbotConfig($websiteId: ID!) {
+          getChatbotConfig(website_id: $websiteId) {
+            ${fieldsString}
+          }
+        }
+      `,
+        variables: {
+          websiteId
+        }
+      },
+    });
+
+    const { data } = response.data as {
+      data: {
+        getChatbotConfig: [any];
+      }
+    };
+
+    return data.getChatbotConfig[0];
+  }
+
+  /**
+  * @query
+  */
+  public async muteChatbot(websiteId: string, muted?: boolean) {
+    const isMuted = muted === undefined ? true : muted;
+
+    const response = await this.http({
+      url: '/projects/graphql',
+      method: 'POST',
+      withCredentials: true,
+      data: {
+        query: `
+        mutation updateConversationConfig($websiteId: ID!, $muted: Boolean!) {
+          updateConversationConfig(
+            websiteId: $websiteId,
+            muted: $muted
+          )
+        }
+        `,
+        variables: {
+          websiteId,
+          muted: isMuted
+        }
+      }
+    })
+
+    return response.data as {
+      data: {
+        updateConversationConfig: ChatbotConfig | null;
+      }
+    }
   }
 
   /**

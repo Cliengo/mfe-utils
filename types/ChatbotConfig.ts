@@ -98,6 +98,7 @@ export interface ChatbotConfig {
   questions_limit: number;
   businessHoursConfiguration: Record<string, unknown>;
   hasToSanitizeChatlog: boolean;
+  muted?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
