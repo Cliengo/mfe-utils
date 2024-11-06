@@ -3,18 +3,6 @@ import { Account, AccountPlan, ChatbotConfig, ChatWidgetConfig, User, Website } 
 import { getUrls } from '../utils/urls';
 import { Channels } from '../types/enums';
 
-type PathsToStringProps<T> = T extends object ? {
-  [K in keyof T]: T[K] extends Array<any>
-  ? `${K & string}` | `${K & string}.${keyof T[K][0] & string}`
-  : T[K] extends object
-  ? `${K & string}` | `${K & string}.${keyof T[K] & string}`
-  : `${K & string}`;
-}[keyof T] : never;
-
-type ChatbotConfigPath = PathsToStringProps<ChatbotConfig>;
-
-
-
 export class CliengoService {
   http: AxiosInstance;
 
@@ -148,9 +136,9 @@ export class CliengoService {
   /**
  * @query
  */
-  public async getFromChatbotConfig<T extends ChatbotConfigPath>(
+  public async getFromChatbotConfig<T>(
     websiteId: string,
-    fields: T[]
+    fields: string[]
   ) {
     const fieldsString = fields.map(field => {
       const parts = field!.toString().split('.');
@@ -183,39 +171,40 @@ export class CliengoService {
       }
     };
 
-    return data.getChatbotConfig[0];
+    return data.getChatbotConfig[0] as T;
   }
 
   /**
   * @query
   */
-  public async muteChatbot(websiteId: string, muted?: boolean) {
-    const isMuted = muted === undefined ? true : muted;
-
-    const response = await this.http({
+  public async muteChatbot(websiteId: string, muted?: boolean): Promise<{
+    data: { handleMuteChatbot: string };
+  }> {
+    const res = await this.http({
       url: '/projects/graphql',
       method: 'POST',
       withCredentials: true,
       data: {
         query: `
-        mutation updateConversationConfig($websiteId: ID!, $muted: Boolean!) {
-          updateConversationConfig(
+       mutation handleMuteChatbot(
+        $websiteId: ID!,
+        $muted: Boolean,
+      ) {
+          handleMuteChatbot(
             websiteId: $websiteId,
-            muted: $muted
+            muted: $muted,
           )
         }
         `,
         variables: {
           websiteId,
-          muted: isMuted
-        }
-      }
-    })
+          muted: muted === undefined ? true : muted,
+        },
+      },
+    });
 
-    return response.data as {
-      data: {
-        updateConversationConfig: ChatbotConfig | null;
-      }
+    return res.data as {
+      data: { handleMuteChatbot: string };
     }
   }
 
