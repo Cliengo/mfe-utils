@@ -124,9 +124,9 @@ export class ZordonService {
     return response.data;
   }
 
-  public async getOnboardingState(companyId: string): Promise<OnboardingState> {
+  public async getOnboardingState(companyId: string, creationDate: number): Promise<OnboardingState> {
     const respose = await this.http.get<OnboardingState>(
-      `/onboarding-state/${companyId}`
+      `/onboarding-state/${companyId}?creation-date=${creationDate}`
     );
 
     return respose.data;

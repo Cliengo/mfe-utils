@@ -1,4 +1,5 @@
 export interface OnboardingState {
+  oldCompanyId: boolean;
   isCompleted: boolean;
   isOmitted: boolean;
   lastCompletedStep: string;
@@ -12,5 +13,6 @@ export interface OnboardingState {
     createNewPhase: boolean;
     moveConversationAround: boolean;
     connectToAChannel: boolean;
+    hideSampleConversation: boolean;
   };
 }
