@@ -79,7 +79,7 @@ const stage = {
 };
 
 const getUrls = (env?: string) => {
-  const appEnv = process.env.ENVIRONMENT as string;
+  const appEnv = (process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string;
 
   if ((env || appEnv) === 'prod') {
     return prod;

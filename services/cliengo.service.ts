@@ -126,7 +126,7 @@ export class CliengoService {
         }[];
       };
     };
-    const fulfillment_url = getUrls(process.env.ENVIRONMENT as string).AI_FULFILLMENT_URL;
+    const fulfillment_url = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).AI_FULFILLMENT_URL;
 
     return data.getChatbotConfig[0].question_list.some(
       (q) => q.fulfillment_url === fulfillment_url
@@ -269,7 +269,7 @@ export class CliengoService {
    * @mutation
    */
   public uncacheLightWidget = async (websiteId: string, companyId: string) => {
-    const url = getUrls(process.env.ENVIRONMENT as string).WEBO_URL;
+    const url = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).WEBO_URL;
     await this.http.get(
       `${url}/${companyId}/${websiteId}.js?uncache=true&validate=skip`
     );
@@ -350,7 +350,7 @@ export class CliengoService {
 }
 
 export const getCliengoService = (jwt?: string) => {
-  const baseURL = getUrls(process.env.ENVIRONMENT as string).API_URL;
+  const baseURL = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).API_URL;
 
   const options = {
     baseURL,
