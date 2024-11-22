@@ -2,7 +2,7 @@ import { cliengoQueries } from '../hooks/useCliengoQuery';
 import { User } from '../types/User';
 
 // {{name}} // {{crm ref}}
-type Permissions =
+export type Permissions =
   | 'reseller_admin' // isAdmin
   | 'admin' // isAccountAdmin
   | 'websites_write' // canEditChatbot
@@ -25,11 +25,13 @@ export class PermissionsService {
     this.user = user;
   }
 
-  public hasPermission(required: Permissions[]) {
+  /** userfull for check if all permissions are present */
+  public hasPermission(required: Permissions[]): boolean {
     return required.every((p) => this.permissions.has(p));
   }
 
-  public hasOneOf(required: Permissions[]) {
+  /** userfull for check if ONE of the permissions is present */
+  public hasOneOf(required: Permissions[]): boolean {
     return required.some((p) => this.permissions.has(p));
   }
 
