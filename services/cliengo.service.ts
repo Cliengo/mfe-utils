@@ -22,7 +22,7 @@ export class CliengoService {
    * @query
    */
   public async getAccount() {
-    const { data } = await this.http.get<Account>(`/account`);
+    const { data } = await this.http.get<Account>(`/account?withFeatures=true`);
 
     return data;
   }
