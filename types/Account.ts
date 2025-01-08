@@ -94,3 +94,16 @@ export interface QuickstartSteps {
   COMPLETE_INFO_VISITED: boolean;
   COMPLETE_INFO_COMPLETED: boolean;
 }
+
+export interface AccountWithFeatures extends Account {
+  planFeatures: {
+    id: string;
+    /** brief description of what the feature is */
+    name: string;
+    /** true if the user can access this feature */
+    value: boolean;
+    /** brief description of what the user does with the feature */
+    entitlementName: string;
+  };
+};
+
