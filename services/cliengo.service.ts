@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { Account, AccountPlan, ChatbotConfig, ChatWidgetConfig, User, Website } from '../types';
+import { AccountWithFeatures, AccountPlan, ChatbotConfig, ChatWidgetConfig, User, Website } from '../types';
 import { getUrls } from '../utils/urls';
 import { Channels } from '../types/enums';
 
@@ -22,7 +22,7 @@ export class CliengoService {
    * @query
    */
   public async getAccount() {
-    const { data } = await this.http.get<Account>(`/account?withFeatures=true`);
+    const { data } = await this.http.get<AccountWithFeatures>(`/account?withFeatures=true`);
 
     return data;
   }
