@@ -104,6 +104,6 @@ export interface AccountWithFeatures extends Account {
     value: boolean;
     /** brief description of what the user does with the feature */
     entitlementName: string;
-  };
+  }[];
 };
 
