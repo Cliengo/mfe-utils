@@ -1,8 +1,9 @@
 import { cliengoQueries } from "../hooks/useCliengoQuery";
 import { AccountWithFeatures } from "../types";
 
-export type FeatureId =
-  | 'ENABLE_CHATBOT';
+export enum FeatureId {
+  ENABLE_CHATBOT = 'ENABLE_CHATBOT'
+}
 // TODO: add more feature ids when they exist
 
 
