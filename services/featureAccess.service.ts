@@ -44,11 +44,16 @@ export class FeatureAccessService {
  * 
  * In case of legacy accounts where the planFeatures field is not present, the service will
  * fallback to true for all features.
- * @returns {FeatureAccessService} A service instance to check feature access
- *  * @example
- * // Inside a React component
+ * @param {AccountWithFeatures} [account] - Optional account object. If provided, will create service with this account instead of fetching
+ * @returns {FeatureAccessService | null} A service instance to check feature access, or null if account fetch fails
+ * @example
+ * // Using with automatic account fetch
  * const MyComponent = () => {
  *   const featureAccess = useFeatureAccess();
+ *   
+ *   if (!featureAccess) {
+ *     return <LoadingState />;
+ *   }
  *   
  *   if (featureAccess.canUseFeature('ENABLE_CHATBOT')) {
  *     return <ChatbotComponent />;
@@ -56,18 +61,38 @@ export class FeatureAccessService {
  *   
  *   return null;
  * };
+ * 
+ * // Using with provided account
+ * const MyOtherComponent = ({ account }) => {
+ *   const featureAccess = useFeatureAccess(account);
+ *   
+ *   if (!featureAccess) {
+ *     return null;
+ *   }
+ *   
+ *   return featureAccess.canUseFeature('ENABLE_CHATBOT') 
+ *     ? <ChatbotComponent />
+ *     : null;
+ * };
  */
-export const useFeatureAccess = (): FeatureAccessService => {
-  // query already has withFeatures=true
-  const { data, status } = cliengoQueries.account();
-
-  let service = {} as FeatureAccessService;
-
-  if (data && status === 'success') {
-    service = new FeatureAccessService(data);
+export const useFeatureAccess = (account?: AccountWithFeatures): FeatureAccessService | null => {
+  if (account) {
+    return new FeatureAccessService(account);
   }
 
-  return service;
+  // query already has withFeatures=true
+  const { data, status, error } = cliengoQueries.account();
+
+  if (error) {
+    console.error('useFeatureAccess::Failed to fetch account data:', error);
+    return null;
+  }
+
+  if (data && status === 'success') {
+    return new FeatureAccessService(data);
+  }
+
+  return null
 };
 
 /**
