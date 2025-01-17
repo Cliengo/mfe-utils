@@ -10,3 +10,6 @@ export * from './Team';
 export * from './User';
 export * from './Wesbite';
 export * from './ZordonConfig';
+export * from './BusinessHoursConfig.ts';
+export * from './WhatsappFormConfig.ts';
+
