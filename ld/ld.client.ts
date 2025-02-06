@@ -1,12 +1,6 @@
 import { LDClient, LDContext, initialize } from 'launchdarkly-js-client-sdk';
 import { Account, User } from '../types';
 
-declare global {
-  interface Window {
-    cliengo_ld_client: LDClient;
-  }
-}
-
 export class LaunchDarklyClientSingleton {
   private static instance: LaunchDarklyClientSingleton;
   private client: LDClient;
@@ -25,7 +19,8 @@ export class LaunchDarklyClientSingleton {
 
     const client = initialize(key, ldContext);
 
-    window.cliengo_ld_client = client;
+    const typedWindow = window as unknown as { cliengo_ld_client: LDClient };
+    typedWindow.cliengo_ld_client = client;
     this.client = client;
   }
 
