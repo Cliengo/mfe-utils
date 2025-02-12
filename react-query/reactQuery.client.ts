@@ -20,7 +20,11 @@ export class QueryClientSingleton {
   }
 }
 
-export const getQueryClient = (client?: QueryClient) => {
+export const getQueryClient = (client?: QueryClient): QueryClient => {
+  if (typeof window === 'undefined') {
+    return QueryClientSingleton.getInstance().getClient();
+  }
+
   const typedWindow = window as unknown as { cliengo_query_client: QueryClient };
 
   if (typeof typedWindow !== 'undefined' && typedWindow.cliengo_query_client) {
