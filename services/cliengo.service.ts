@@ -349,11 +349,16 @@ export class CliengoService {
   }
 }
 
-export const getCliengoService = (jwt?: string) => {
+export const getCliengoService = (args?: {
+  jwt?: string;
+  baseUrl?: string;
+}) => {
+  const { jwt, baseUrl } = args || {};
+
   const baseURL = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).API_URL;
 
   const options = {
-    baseURL,
+    baseURL: baseUrl || baseURL,
     withCredentials: true,
     headers: {},
   }

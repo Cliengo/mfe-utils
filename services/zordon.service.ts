@@ -241,11 +241,16 @@ export class ZordonService {
   }
 }
 
-export const getZordonService = (jwt?: string) => {
+export const getZordonService = (args?: {
+  jwt?: string;
+  baseUrl?: string;
+}) => {
+  const { jwt, baseUrl } = args || {};
+
   const baseURL = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).ZORDON_URL;
 
   const options = {
-    baseURL,
+    baseURL: baseUrl || baseURL,
     withCredentials: true,
     headers: {},
   }
