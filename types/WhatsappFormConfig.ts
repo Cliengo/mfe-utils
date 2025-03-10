@@ -1,4 +1,4 @@
-interface WhatsappFormConfig {
+export interface WhatsappFormConfig {
   websiteId: string;
   id?: string;
   phone: string;
