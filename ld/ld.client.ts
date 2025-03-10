@@ -11,6 +11,8 @@ export class LaunchDarklyClientSingleton {
       key: user.id,
       companyId: account.id,
       custom: {
+        ...user,
+        ...account,
         companyId: account.id,
       },
     };
