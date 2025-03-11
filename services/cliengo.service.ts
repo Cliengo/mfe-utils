@@ -268,10 +268,10 @@ export class CliengoService {
   /**
    * @mutation
    */
-  public uncacheLightWidget = async (websiteId: string, companyId: string) => {
-    const url = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).WEBO_URL;
+  public uncacheLightWidget = async (websiteId: string) => {
+    const url = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).ZORDON_URL;
     await this.http.get(
-      `${url}/${companyId}/${websiteId}.js?uncache=true&validate=skip`
+      `${url}/1.0/uncache/widget/${websiteId}`
     );
   };
 
