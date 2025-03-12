@@ -268,10 +268,10 @@ export class CliengoService {
   /**
    * @mutation
    */
-  public uncacheLightWidget = async (websiteId: string) => {
+  public uncacheLightWidget = async (companyId: string, websiteId: string) => {
     const url = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).ZORDON_URL;
     await this.http.get(
-      `${url}/1.0/uncache/widget/${websiteId}`
+      `${url}/1.0/uncache/widget/${companyId}/${websiteId}`
     );
   };
 
