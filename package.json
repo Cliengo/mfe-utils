@@ -19,6 +19,10 @@
   "scripts": {
     "publish": "npx jsr publish --allow-slow-types"
   },
+  "dependencies": {
+    "launchdarkly-js-client-sdk": "^3.5.0",
+    "react-router-dom": "^6.25.1"
+  },
   "peerDependencies": {
     "@tanstack/react-query": "^5.67.1",
     "launchdarkly-js-client-sdk": "^3.5.0",
