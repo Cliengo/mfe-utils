@@ -17,6 +17,18 @@ npx jsr remove @cliengo/mfe-utils
 npx jsr install @cliengo/mfe-utils
 ```
 
+# Importante
+Para asegurar de que las versiones de react-query, launch-darkly, y react-router-dom sean las mismas
+y que los hooks expuestos en este paquete funcionen correctamente. Agregar esto a tu package.json:
+
+```json
+  "resolutions": {
+    "@tanstack/react-query": "5.67.1",
+    "launchdarkly-js-client-sdk": "3.5.0",
+    "react-router-dom": "6.25.1"
+  }
+```
+
 ## Usage
 
 ### React Query
@@ -292,3 +304,15 @@ const App = () => {
   );
 };
 ```
+
+### Guia de actualizacion de versiones y agregado de codigo
+
+1. Crear una rama desde `prod`
+2. Hacer los cambios
+3. Actualizar el archivo `jsr.json` con la nueva version del paquete (sumar 1 al numero de version)
+ej: si la version anterior es 0.5.6, la nueva version es 0.5.7
+4. PR a `prod`
+
+Una vez mergeado el PR, se actualizará el paquete en `jsr.io` automaticamente.
+
+A partir de ahi, la proxima vez que se ejecute `npx jsr install` se instalará la nueva version del paquete en tu MFE.
