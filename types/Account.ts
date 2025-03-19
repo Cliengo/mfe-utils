@@ -4,6 +4,8 @@ export interface Account {
   phone: string;
   name: string;
   contactName: string;
+  planFrequency?: 'month' | 'year';
+  planShortName?: string;
   taxId: string;
   creationDate: string;
   whiteLabelId: string;
