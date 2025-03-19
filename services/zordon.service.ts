@@ -1,9 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
 
+
 import { OnboardingState } from '../types/Onboarding';
 import { getUrls } from '../utils/urls';
 import { KnowledgeDocument, ZordonConfig } from '../types/ZordonConfig';
 import { FaqsResponseDTO, Question } from '../types/faqs.types';
+import { getCookie } from './utils/cookies';
 
 type ChatbotConfig = ZordonConfig;
 
@@ -247,18 +249,15 @@ export const getZordonService = (args?: {
 }) => {
   const { jwt, baseUrl } = args || {};
 
-  const baseURL = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).ZORDON_URL;
+  const _baseUrl = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).ZORDON_URL;
+
+  const _jwt = getCookie('jwt');
 
   const options = {
-    baseURL: baseUrl || baseURL,
-    withCredentials: true,
-    headers: {},
-  }
-
-  if (jwt) {
-    options.headers = {
-      Authorization: jwt,
-    }
+    baseURL: baseUrl || _baseUrl,
+    headers: {
+      Authorization: jwt || _jwt,
+    },
   }
 
   return new ZordonService(
