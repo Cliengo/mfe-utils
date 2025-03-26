@@ -1,6 +1,7 @@
 export interface AccountPlan {
   id: string;
   name: string;
+  addons?: PlanAddon[];
   description: string;
   isAnnualPlan: boolean;
   leadLimit: number;
@@ -25,4 +26,14 @@ export interface AccountPlan {
 export interface PlanRemainingTime {
   number: string;
   translationKey: string;
+}
+
+export interface PlanAddon {
+  id: string;
+  itemType: string;
+  name: string;
+  price: number;
+  quantity: number;
+  type: string;
+  features: {id: string, name: string, value: string,}[]
 }
