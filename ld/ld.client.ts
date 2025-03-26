@@ -67,7 +67,7 @@ export const getLDClient = (client?: LDClient) => {
     return client;
   }
 
-  return LaunchDarklyClientSingleton.getInstance();
+  return LaunchDarklyClientSingleton.getInstance().getClient();
 };
 
 export const initLaunchDarkly = async (user: User, account: Account) => {
