@@ -3,6 +3,7 @@ import { AccountWithFeatures, AccountPlan, ChatbotConfig, ChatWidgetConfig, User
 import { getUrls } from '../utils/urls';
 import { Channels } from '../types/enums';
 import { getCookie } from './utils/cookies';
+import { Trigger } from '../types/Triggers';
 
 export class CliengoService {
   http: AxiosInstance;
@@ -347,6 +348,18 @@ export class CliengoService {
     const websitesWithAIIds = websitesWithAI.filter((w) => !!w);
 
     return websitesWithAIIds as string[];
+  }
+
+  /**
+   * @query
+   */
+  public async getTriggers(websiteId: string) {
+    const { data } = await this.http.get(`/sites/${websiteId}/chatbot/triggers`);
+
+    return data as {
+      paging: { total: number };
+      results: Trigger[];
+    }
   }
 }
 
