@@ -1,5 +1,5 @@
-import { LDClient, LDContext, initialize } from 'launchdarkly-js-client-sdk';
-import { Account, User } from '../types';
+import { LDClient, LDContext, initialize } from "launchdarkly-js-client-sdk";
+import { Account, User } from "../types";
 
 export class LaunchDarklyClientSingleton {
   private static instance: LaunchDarklyClientSingleton;
@@ -11,13 +11,25 @@ export class LaunchDarklyClientSingleton {
       key: user.id,
       companyId: account.id,
       custom: {
-        ...user,
-        ...account,
         companyId: account.id,
+        whiteLabelId: account.whiteLabelId,
+        whiteLabelName: account.whiteLabelName,
+        countryId: account.countryId,
+        companyCreationDate: Math.floor(
+          new Date(account.creationDate).getTime() / 1000
+        ),
+        affiliate: account.affiliate,
+        affiliateProgramCode: account.affiliateProgramCode,
+        creationDate: new Date(account.creationDate).getTime(),
+        planType: account.planType,
       },
     };
 
-    const key = process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT || '';
+    const key =
+      process.env.STAGE_LAUNCHDARKLY_KEY ||
+      process.env.PROD_LAUNCHDARKLY_KEY ||
+      process.env.NEXT_PUBLIC_LAUNCHDARKLY_KEY ||
+      "";
 
     const client = initialize(key, ldContext);
 
@@ -32,7 +44,7 @@ export class LaunchDarklyClientSingleton {
 
   public static getInstance() {
     if (!initialize) {
-      console.warn('LaunchDarkly not initialized and getInstance was called');
+      console.warn("LaunchDarkly not initialized and getInstance was called");
     }
     return LaunchDarklyClientSingleton.instance;
   }
@@ -59,7 +71,7 @@ export class LaunchDarklyClientSingleton {
 export const getLDClient = (client?: LDClient) => {
   const typedWindow = window as unknown as { cliengo_ld_client: LDClient };
 
-  if (typeof typedWindow !== 'undefined' && typedWindow.cliengo_ld_client) {
+  if (typeof typedWindow !== "undefined" && typedWindow.cliengo_ld_client) {
     return typedWindow.cliengo_ld_client;
   }
 
