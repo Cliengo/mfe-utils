@@ -12,4 +12,4 @@ export * from './Wesbite';
 export * from './ZordonConfig';
 export * from './BusinessHoursConfig.ts';
 export * from './WhatsappFormConfig.ts';
-
+export * from './Triggers';
