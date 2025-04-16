@@ -53,7 +53,7 @@ const stage = {
   LOGIN_URL: 'https://login.stagecliengo.com',
   LW_URL: 'https://lw.stagecliengo.com',
   META_APP_ID: '1050385118369983',
-  METRICS_API_URL: 'https://geniol-1b70ca157962.herokuapp.com',
+  METRICS_API_URL: 'https://stage-geniol-48f33dc2c467.herokuapp.com',
   MFE_ONBOARDING: 'https://onboarding.stagecliengo.com',
   MFE_APP_CAMPAIGNS_URL: 'https://www.campaigns.stagecliengo.com',
   MFE_APP_GENIA_CHATBOT_MODULE: 'https://chatbot-module.stagecliengo.com',
