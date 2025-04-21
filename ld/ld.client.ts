@@ -83,5 +83,11 @@ export const getLDClient = (client?: LDClient) => {
 };
 
 export const initLaunchDarkly = async (user: User, account: Account) => {
+  const typedWindow = window as unknown as { cliengo_ld_client: LDClient };
+
+  if (typeof typedWindow !== "undefined" && typedWindow.cliengo_ld_client) {
+    return !!typedWindow.cliengo_ld_client;
+  }
+
   return await LaunchDarklyClientSingleton.initInstance(user, account);
 };
