@@ -6,6 +6,16 @@ export type IAProviderInfo = {
   maxTokens: number;
   model: string;
   providerName: string;
+  tools: Record<
+    string,
+    {
+      enabled: boolean;
+      extraInstructions?: string;
+      scope: string[];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      context: any;
+    }
+  >;
 };
 
 export type BotProfile = {
@@ -14,7 +24,7 @@ export type BotProfile = {
     | 'COOL'
     | 'FRIENDLY'
     | 'SERIOUS'
-    | 'PROFESIONAL'
+    | 'PROFESSIONAL'
     | 'CREATIVE'
     | 'FUNNY'
     | 'HELPFUL';
@@ -34,10 +44,12 @@ export type BotProfile = {
 };
 
 export type KnowledgeDocument = {
+  _id?: string;
   name: string;
   src: string;
   originalName: string;
-  status: 'learning' | 'learned';
+  description?: string;
+  status: 'learning' | 'learned' | 'failed';
   type: 'file' | 'url';
   createdAt?: Date;
   updatedAt?: Date;
@@ -70,6 +82,7 @@ type MandatoryQuestions = {
   conditionToBeRight: string;
   enabled: boolean;
   internalName: string;
+  options: string[];
 };
 
 type CustomPromptMessage = {
@@ -80,7 +93,8 @@ type CustomPromptMessage = {
 
 type CustomProperties = {
   promptMessages: CustomPromptMessage[] | null;
-  externalNamespace: string | null;
+  customNamespace: string | null;
+  systemPrompt: string | null;
 };
 
 export type ChatbotConfigDocument = {
@@ -100,6 +114,20 @@ export type ChatbotConfigDocument = {
     [key: string]: boolean;
   };
 };
+
+
+export type Faq = {
+  _id: string;
+  question: string;
+  response: string;
+  category: string;
+}
+
+export type FaqWithMetadata = Faq & {
+  ignoreGPT?: boolean;
+  source?: string;
+  chatbotId?: string;
+}
 
 /**
  * @alias ChatbotConfigDocument

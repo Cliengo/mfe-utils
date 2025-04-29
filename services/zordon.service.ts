@@ -16,7 +16,6 @@ export class ZordonService {
     this.http = http;
   }
 
-
   /**
    * @mutation
    */
