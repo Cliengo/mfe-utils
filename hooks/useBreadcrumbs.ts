@@ -6,6 +6,7 @@ interface Breadcrumb {
 }
 
 /**
+ * @deprecated breadcrumbs are now handled by the HOST app (https://github.com/cliengo/rapidash)
  * @example
  * 
  * const breadcrumbs: Breadcrumb[] = [

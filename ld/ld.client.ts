@@ -68,6 +68,22 @@ export class LaunchDarklyClientSingleton {
   }
 }
 
+/**
+ * @description
+ * Get the LaunchDarkly client instance.
+ * If the client is not already initialized, it will be initialized and returned.
+ * If the client is already initialized, it will be returned.
+ * If the client is not initialized, it will be initialized and returned.
+ * 
+ * @example
+ * const ldClient = getLDClient();
+ * 
+ * return (
+ *   <div>
+ *     <h1>{ldClient.variation('test-flag', false)}</h1>
+ *   </div>
+ * );
+ */
 export const getLDClient = (client?: LDClient) => {
   const typedWindow = window as unknown as { cliengo_ld_client: LDClient };
 
@@ -82,6 +98,35 @@ export const getLDClient = (client?: LDClient) => {
   return LaunchDarklyClientSingleton.getInstance().getClient();
 };
 
+/**
+ * @description
+ * Initialize the LaunchDarkly client instance.
+ * 
+ * @example
+ *   const { data: userData, status: userStatus } = cliengoQueries.user();
+ *   const { data: accountData, status: accountStatus } = cliengoQueries.account();
+ * 
+ *   const { status: initLaunchDarklyStatus } = useQuery({
+ *     queryKey: ['init-launchdarkly'],
+ *     queryFn: () => initLaunchDarkly(userData!, accountData!),
+ *     refetchOnWindowFocus: false,
+ *     enabled: !!userData && !!accountData,
+ *   });
+ * 
+ *   if ([userStatus, accountStatus].some(status => status !== 'success')) {
+ *     return <div>Loading...</div>;
+ *   }
+ * 
+ *   if (initLaunchDarklyStatus === 'success') {
+ *     return <div>LaunchDarkly initialized</div>;
+ *   }
+ * 
+ *   if (initLaunchDarklyStatus === 'error') {
+ *     return <div>Error initializing LaunchDarkly</div>;
+ *   }
+ * 
+ *   return null;
+ */
 export const initLaunchDarkly = async (user: User, account: Account) => {
   const typedWindow = window as unknown as { cliengo_ld_client: LDClient };
 

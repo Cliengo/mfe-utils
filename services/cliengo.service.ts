@@ -1,9 +1,9 @@
-import axios, { AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
 import { AccountWithFeatures, AccountPlan, ChatbotConfig, ChatWidgetConfig, User, Website } from '../types';
 import { getUrls } from '../utils/urls';
 import { Channels } from '../types/enums';
-import { getCookie } from './utils/cookies';
 import { Trigger } from '../types/Triggers';
+import { getCliengoClient } from '../clients/cliengo.client';
 
 export class CliengoService {
   http: AxiosInstance;
@@ -367,20 +367,9 @@ export const getCliengoService = (args?: {
   jwt?: string;
   baseUrl?: string;
 }) => {
-  const { jwt, baseUrl } = args || {};
-
-  const _baseUrl = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).API_URL;
-
-  const _jwt = getCookie('jwt');
-
-  const options = {
-    baseURL: baseUrl || _baseUrl,
-    headers: {
-      Authorization: jwt || _jwt,
-    },
-  }
+  const client = getCliengoClient(args || {});
 
   return new CliengoService({
-    http: axios.create(options),
+    http: client,
   });
 }

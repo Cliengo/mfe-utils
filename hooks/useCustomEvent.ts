@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 
 /**
+ * @description
+ * Use this hook to listen to custom events on the window object.
+ * 
  * @example
  * useCustomEvent('some event name', (e) => {
  *  const event = e as CustomEvent<TheDetailType>;

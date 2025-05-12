@@ -1,19 +1,18 @@
-import axios, { AxiosInstance } from 'axios';
+import { AxiosInstance } from 'axios';
 
 
 import { OnboardingState } from '../types/Onboarding';
-import { getUrls } from '../utils/urls';
 import { KnowledgeDocument, ZordonConfig } from '../types/ZordonConfig';
 import { FaqsResponseDTO, Question } from '../types/faqs.types';
-import { getCookie } from './utils/cookies';
+import { getZordonClient } from '../clients/zordon.client';
 
 type ChatbotConfig = ZordonConfig;
 
 export class ZordonService {
   http: AxiosInstance;
 
-  constructor(http: AxiosInstance) {
-    this.http = http;
+  constructor(args: { http: AxiosInstance }) {
+    this.http = args.http;
   }
 
   /**
@@ -246,20 +245,9 @@ export const getZordonService = (args?: {
   jwt?: string;
   baseUrl?: string;
 }) => {
-  const { jwt, baseUrl } = args || {};
+  const client = getZordonClient(args || {});
 
-  const _baseUrl = getUrls((process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string).ZORDON_URL;
-
-  const _jwt = getCookie('jwt');
-
-  const options = {
-    baseURL: baseUrl || _baseUrl,
-    headers: {
-      Authorization: jwt || _jwt,
-    },
-  }
-
-  return new ZordonService(
-    axios.create(options)
-  );
+  return new ZordonService({
+    http: client,
+  });
 }
