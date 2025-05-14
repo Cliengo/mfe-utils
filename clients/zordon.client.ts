@@ -33,7 +33,7 @@ export const getZordonClient = (args: {
   if (!jwt) {
     const _jwt = getCookie('jwt');
 
-    if (!jwt) {
+    if (!_jwt) {
       throw new ZordonClientError('JWT is required');
     }
 

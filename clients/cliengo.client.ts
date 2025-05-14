@@ -33,7 +33,7 @@ export const getCliengoClient = (args: {
   if (!jwt) {
     const _jwt = getCookie('jwt');
 
-    if (!jwt) {
+    if (!_jwt) {
       throw new CliengoClientError('JWT is required');
     }
 
