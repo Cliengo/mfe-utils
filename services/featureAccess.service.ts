@@ -2,12 +2,15 @@ import { cliengoQueries } from "../hooks/useCliengoQuery";
 import { AccountWithFeatures } from "../types";
 
 export enum FeatureId {
-  ENABLE_CHATBOT = 'enable_chatbot',
+  ENABLE_CHATBOT = 'enable_chatbots',
   CLIENGO_IA = 'cliengo_ia',
-  UNLIMITED_KANBAN = 'unlimited_kanban'
+  UNLIMITED_KANBAN = 'unlimited_kanban',
+  ADDITIONAL_QUESTION_LIMIT = 'additional-questions-limit',
+  TRIGGER_LIMIT = 'triggers-limit',
+  INTEGRATIONS = 'integrations',
+  USER = 'user',
+  CONVERSATION = 'conversation'
 }
-// TODO: add more feature ids when they exist
-
 
 export class FeatureAccessService {
   account: AccountWithFeatures;
@@ -23,6 +26,7 @@ export class FeatureAccessService {
     }
   }
 
+  /** Solo se puede utilizar con los features que son true o false */
   public canUseFeature(feature: FeatureId): boolean {
     if (this.features.has(feature)) {
       return this.features.get(feature) as boolean;
