@@ -14,7 +14,7 @@ export enum FeatureId {
 
 export class FeatureAccessService {
   account: AccountWithFeatures;
-  private features: Map<FeatureId, boolean> = new Map();
+  private features: Map<FeatureId, string> = new Map();
 
   constructor(account: AccountWithFeatures) {
     this.account = account;
@@ -29,7 +29,7 @@ export class FeatureAccessService {
   /** Solo se puede utilizar con los features que son true o false */
   public canUseFeature(feature: FeatureId): boolean {
     if (this.features.has(feature)) {
-      return this.features.get(feature) as boolean;
+      return this.features.get(feature) === "true";
     }
 
     // fallback for legacy plans that don't have the planFeatures field

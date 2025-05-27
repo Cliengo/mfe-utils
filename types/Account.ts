@@ -102,8 +102,8 @@ export interface AccountWithFeatures extends Account {
     id: string;
     /** brief description of what the feature is */
     name: string;
-    /** true if the user can access this feature */
-    value: boolean;
+    /** true if the user can access this feature, false if not. Can also be a number in a string */
+    value: string;
     /** brief description of what the user does with the feature */
     entitlementName: string;
   }[];
