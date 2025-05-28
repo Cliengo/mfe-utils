@@ -1,4 +1,5 @@
 const prod = {
+  LEGACY_CRM_URL: 'https://legacy.cliengo.com',
   AI_FULFILLMENT_URL: 'https://zordon-8487db5d9dca.herokuapp.com/api/message/receive',
   API_URL: 'https://api.cliengo.com/1.0',
   BROKER_FILES_URL: 'https://broker.cliengo.com',
@@ -39,6 +40,7 @@ const prod = {
 };
 
 const stage = {
+  LEGACY_CRM_URL: 'https://legacy.stagecliengo.com',
   AI_FULFILLMENT_URL: 'https://stage-zordon-9e009c9b84c6.herokuapp.com/api/message/receive',
   API_URL: 'https://api.stagecliengo.com/1.0',
   BROKER_FILES_URL: 'https://broker.stagecliengo.com',
