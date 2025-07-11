@@ -30,6 +30,15 @@ export class CliengoService {
   }
 
   /**
+   * @mutation
+   */
+  public async patchAccount(payload: Record<string, unknown>) {
+    const { data } = await this.http.patch('/account', payload);
+
+    return data;
+  }
+
+  /**
    * @query
    */
   public async getPlan() {

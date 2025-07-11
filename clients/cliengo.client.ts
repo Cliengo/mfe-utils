@@ -23,7 +23,16 @@ export const getCliengoClient = (args: {
       console.warn('CliengoClient: Environment is not set, serving stage URL by default.');
     }
 
-    baseUrl = getUrls(env as string).API_URL;
+    if (env === 'dev') {
+      baseUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL;
+      
+      if (!baseUrl) {
+        console.warn('CliengoClient: API_URL not found in environment variables for dev environment, falling back to getUrls');
+        baseUrl = getUrls(env as string).API_URL;
+      }
+    } else {
+      baseUrl = getUrls(env as string).API_URL;
+    }
 
      if (!baseUrl) {
       throw new CliengoClientError('Base URL is required');
