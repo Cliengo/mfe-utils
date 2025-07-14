@@ -1,6 +1,6 @@
 {
   "name": "@cliengo/mfe-utils",
-  "version": "0.5.22",
+  "version": "0.5.23",
   "exports": {
     "./mod": "./mod.ts",
     "./types": "./types/index.ts",
