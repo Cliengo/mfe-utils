@@ -80,18 +80,80 @@ const stage = {
   ZORDON_URL: 'https://zordon.stagecliengo.com/api',
 };
 
+const dev = {
+  LEGACY_CRM_URL: process.env.LEGACY_CRM_URL ?? stage.LEGACY_CRM_URL,
+  AI_FULFILLMENT_URL: process.env.AI_FULFILLMENT_URL ?? stage.AI_FULFILLMENT_URL,
+  API_URL: process.env.API_URL ?? stage.API_URL,
+  BROKER_FILES_URL: process.env.BROKER_FILES_URL ?? stage.BROKER_FILES_URL,
+  BROKER_PUBLIC_URL: process.env.BROKER_PUBLIC_URL ?? stage.BROKER_PUBLIC_URL,
+  BROKER_WSPL_URL: process.env.BROKER_WSPL_URL ?? stage.BROKER_WSPL_URL,
+  CDNX_URL: process.env.CDNX_URL ?? stage.CDNX_URL,
+  COCOS_URL: process.env.COCOS_URL ?? stage.COCOS_URL,
+  COMBEE_URL: process.env.COMBEE_URL ?? stage.COMBEE_URL,
+  CRM_URL: process.env.CRM_URL ?? stage.CRM_URL,
+  DASH_URL: process.env.DASH_URL ?? stage.DASH_URL,
+  KNOWLEDGE_FILE_INGESTER: process.env.KNOWLEDGE_FILE_INGESTER ?? stage.KNOWLEDGE_FILE_INGESTER,
+  LOGIN_URL: process.env.LOGIN_URL ?? stage.LOGIN_URL,
+  LW_URL: process.env.LW_URL ?? stage.LW_URL,
+  META_APP_ID: process.env.META_APP_ID ?? stage.META_APP_ID,
+  METRICS_API_URL: process.env.METRICS_API_URL ?? stage.METRICS_API_URL,
+  MFE_ONBOARDING: process.env.MFE_ONBOARDING ?? stage.MFE_ONBOARDING,
+  MFE_APP_CAMPAIGNS_URL: process.env.MFE_APP_CAMPAIGNS_URL ?? stage.MFE_APP_CAMPAIGNS_URL,
+  MFE_APP_GENIA_CHATBOT_MODULE: process.env.MFE_APP_GENIA_CHATBOT_MODULE ?? stage.MFE_APP_GENIA_CHATBOT_MODULE,
+  MFE_APP_HSM_URL: process.env.MFE_APP_HSM_URL ?? stage.MFE_APP_HSM_URL,
+  MFE_APP_LIVE_URL: process.env.MFE_APP_LIVE_URL ?? stage.MFE_APP_LIVE_URL,
+  MFE_APP_PARTNERS_URL: process.env.MFE_APP_PARTNERS_URL ?? stage.MFE_APP_PARTNERS_URL,
+  MFE_APP_REPORTS_URL: process.env.MFE_APP_REPORTS_URL ?? stage.MFE_APP_REPORTS_URL,
+  MFE_APP_WPLITE: process.env.MFE_APP_WPLITE ?? stage.MFE_APP_WPLITE,
+  MFE_COMMON_AUTH: process.env.MFE_COMMON_AUTH ?? stage.MFE_COMMON_AUTH,
+  MFE_HERMES_URL: process.env.MFE_HERMES_URL ?? stage.MFE_HERMES_URL,
+  MFE_IFRAME_CRM: process.env.MFE_IFRAME_CRM ?? stage.MFE_IFRAME_CRM,
+  MFE_IFRAME_HSM: process.env.MFE_IFRAME_HSM ?? stage.MFE_IFRAME_HSM,
+  MFE_IFRAME_LIT: process.env.MFE_IFRAME_LIT ?? stage.MFE_IFRAME_LIT,
+  MFE_IFRAME_TRIGGERS: process.env.MFE_IFRAME_TRIGGERS ?? stage.MFE_IFRAME_TRIGGERS,
+  MOZART_WEBHOOK_URL: process.env.MOZART_WEBHOOK_URL ?? stage.MOZART_WEBHOOK_URL,
+  OAUTH_LOGIN_URL: process.env.OAUTH_LOGIN_URL ?? stage.OAUTH_LOGIN_URL,
+  REDIRECT_LOGOUT_URL: process.env.REDIRECT_LOGOUT_URL ?? stage.REDIRECT_LOGOUT_URL,
+  SCROP_URL: process.env.SCROP_URL ?? stage.SCROP_URL,
+  SOCKETIA_URL: process.env.SOCKETIA_URL ?? stage.SOCKETIA_URL,
+  TS_API_URL: process.env.TS_API_URL ?? stage.TS_API_URL,
+  WEBO_URL: process.env.WEBO_URL ?? stage.WEBO_URL,
+  ZORDON_URL: process.env.ZORDON_URL ?? stage.ZORDON_URL,
+}
+
+const getEnv = () => {
+  const env = (process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string;
+  return env;
+}
+
 const getUrls = (env?: string) => {
-  const appEnv = (process.env.ENVIRONMENT || process.env.NEXT_PUBLIC_ENVIRONMENT) as string;
+  const appEnv = getEnv();
 
   if ((env || appEnv) === 'prod') {
     return prod;
   }
 
+  if ((env || appEnv) === 'dev') {
+    console.info('Using dev urls from mfe-utils');
+    return dev;
+  }
+
   return stage;
+}
+
+const checkEnvUrl = (scope: string, url: string) => {
+  const env = getEnv();
+
+  if (env === 'dev' && url?.includes('stage')) {
+    console.warn(`${scope}: detected stage url while using dev environment.`);
+    console.warn(`${scope}: url detected: `, url);
+  }
 }
 
 export {
   stage,
   prod,
   getUrls,
+  checkEnvUrl,
+  getEnv,
 }
