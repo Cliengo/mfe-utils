@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getUrls } from "../utils/urls";
+import { checkEnvUrl, getUrls } from "../utils/urls";
 import { getCookie } from "../services/utils/cookies";
 
 class ZordonClientError extends Error {
@@ -22,6 +22,8 @@ export const getZordonClient = (args: {
     if (!env) {
       console.warn('ZordonClient: Environment is not set, serving stage URL by default.');
     }
+
+    checkEnvUrl('ZordonClient', baseUrl);
 
     baseUrl = getUrls(env as string).ZORDON_URL;
 
