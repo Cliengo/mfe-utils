@@ -32,8 +32,8 @@ export class CliengoService {
   /**
    * @mutation
    */
-  public async patchAccount(payload: Record<string, unknown>) {
-    const { data } = await this.http.patch('/account', payload);
+  public async patchAccount(companyId: string, payload: Record<string, unknown>) {
+    const { data } = await this.http.patch(`/account/${companyId}`, payload);
 
     return data;
   }
