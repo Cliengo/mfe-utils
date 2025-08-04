@@ -25,4 +25,5 @@ export interface Website {
   whatsAppApiStatus: 'CONNECTED' | 'PENDING_CONNECTION' | 'PENDING_DISCONNECTION' | 'NOT_CONNECTED';
   isWhatsAppApi?: boolean;
   isWhatsAppLite?: boolean;
+  webScriptWasCopied?: boolean;
 }
