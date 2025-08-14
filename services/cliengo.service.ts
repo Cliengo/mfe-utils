@@ -32,8 +32,8 @@ export class CliengoService {
   /**
    * @mutation
    */
-  public async patchAccount(payload: Record<string, unknown>) {
-    const { data } = await this.http.patch('/account', payload);
+  public async patchAccount(companyId: string, payload: Record<string, unknown>) {
+    const { data } = await this.http.patch(`/account/${companyId}`, payload);
 
     return data;
   }
@@ -96,6 +96,16 @@ export class CliengoService {
 
     return response.data;
   }
+
+  /**
+   * @mutation
+   */
+  public async patchWebsite(websiteId: string, payload: Record<string, unknown>) {
+    const { data } = await this.http.patch(`/sites/${websiteId}`, payload);
+
+    return data;
+  }
+
 
   public async setConversationBlocks(websiteId: string, blocks: string[]) {
     const response = await this.http.post(`/projects/question-block/set-blocks/${websiteId}`, {

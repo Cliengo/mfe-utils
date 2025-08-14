@@ -21,4 +21,9 @@ export interface Website {
   isWhatsAppChat: boolean;
   externalId?: string;
   whatsappNumber? : string;
+  metaAccountName?: string;
+  whatsAppApiStatus: 'CONNECTED' | 'PENDING_CONNECTION' | 'PENDING_DISCONNECTION' | 'NOT_CONNECTED';
+  isWhatsAppApi?: boolean;
+  isWhatsAppLite?: boolean;
+  webScriptWasCopied?: boolean;
 }
