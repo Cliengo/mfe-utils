@@ -61,6 +61,7 @@ export interface Account {
   customWebsiteLimit: number;
   leadResetDate: string;
   daysToLeadResetDate: number;
+  totalDues: number;
   planCurrency: string;
   planPrice: number;
   planName: string;
