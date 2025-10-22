@@ -72,7 +72,8 @@ export interface Account {
     unitCount: number;
     unitLimit: number;
     unitType: string;
-  }[]
+  }[];
+  registrationCampaign: string;
   unitCountConversation: number;
   unitLimitConversation: number;
   autoBuyLeadPackageEnabled: boolean;
