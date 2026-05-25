@@ -31,6 +31,7 @@ export interface Account {
   subscriptionMethod: string;
   forceChargebee: boolean;
   forceMercadoPago: boolean;
+  chargebeeAccount?: string;
   quickstartSteps: QuickstartSteps;
   shouldFireScriptPixel: boolean;
   affiliateProgramCode: string;
