@@ -1,6 +1,7 @@
 import { cliengoQueries } from '../hooks/useCliengoQuery';
 import { User } from '../types/User';
 
+// note:
 // {{name}} // {{crm ref}}
 export type Permissions =
   | 'reseller_admin' // isAdmin
