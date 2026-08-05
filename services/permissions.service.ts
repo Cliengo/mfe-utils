@@ -14,7 +14,35 @@ export type Permissions =
   | 'users_read' // canViewUsers
   | 'users_write' // canEditUsers
   | 'chat_talk' // canIntervineChat
-  | 'reports_write'; // canViewReports
+  | 'reports_write' // canViewReports
+  | 'conversations_read'
+  | 'conversations_write'
+  | 'automations_read'
+  | 'automations_write'
+  | Restrictions;
+
+/**
+ * Restriction keys (roadmap#1281). These invert the usual grant semantics:
+ * **absence means allowed**, presence means denied. That is what lets an admin
+ * revoke a capability from a single user without a backfill over every existing
+ * user document — untouched users keep behaving exactly as they did before.
+ *
+ * Never require one of these to be present in order to allow something, and
+ * always let `isAdmin()` short-circuit first: admins are never restricted.
+ * Read them through `PermissionsService.isRestricted()`.
+ */
+export type Restrictions =
+  | 'no_export_inbox' // cannot export conversations from the Inbox
+  | 'no_export_contacts' // cannot export the contacts base
+  | 'no_contacts_create' // cannot create contacts manually
+  | 'no_automations'; // cannot see or manage the Automations module
+
+export const RESTRICTIONS: readonly Restrictions[] = [
+  'no_export_inbox',
+  'no_export_contacts',
+  'no_contacts_create',
+  'no_automations',
+] as const;
 
 export class PermissionsService {
   user: User;
@@ -37,6 +65,20 @@ export class PermissionsService {
 
   public isAdmin() {
     return this.hasOneOf(['admin', 'reseller_admin']);
+  }
+
+  /**
+   * Whether this user has been explicitly restricted from a capability
+   * (roadmap#1281). Admins are never restricted.
+   *
+   * Deny-by-presence: a user with no restriction keys is *not* restricted, which
+   * is what keeps existing accounts behaving as they always have.
+   */
+  public isRestricted(restriction: Restrictions): boolean {
+    if (this.isAdmin()) {
+      return false;
+    }
+    return this.permissions.has(restriction);
   }
 
   public getPermissions() {
