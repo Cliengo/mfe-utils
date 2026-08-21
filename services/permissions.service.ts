@@ -23,10 +23,11 @@ export type Permissions =
   | Restrictions;
 
 /**
- * Restriction keys (roadmap#1281). These invert the usual grant semantics:
- * **absence means allowed**, presence means denied. That is what lets an admin
- * revoke a capability from a single user without a backfill over every existing
- * user document — untouched users keep behaving exactly as they did before.
+ * Restriction keys (roadmap#1281, extended by #1539). These invert the usual
+ * grant semantics: **absence means allowed**, presence means denied. That is
+ * what lets an admin revoke a capability from a single user without a backfill
+ * over every existing user document — untouched users keep behaving exactly as
+ * they did before.
  *
  * Never require one of these to be present in order to allow something, and
  * always let `isAdmin()` short-circuit first: admins are never restricted.
@@ -36,13 +37,17 @@ export type Restrictions =
   | 'no_export_inbox' // cannot export conversations from the Inbox
   | 'no_export_contacts' // cannot export the contacts base
   | 'no_contacts_create' // cannot create contacts manually
-  | 'no_automations'; // cannot see or manage the Automations module
+  | 'no_automations' // cannot see or manage the Automations module
+  | 'no_copilot' // cannot use the AI Copilot panel (roadmap#1539)
+  | 'no_bulk_actions'; // cannot run bulk actions on conversations (roadmap#1539)
 
 export const RESTRICTIONS: readonly Restrictions[] = [
   'no_export_inbox',
   'no_export_contacts',
   'no_contacts_create',
   'no_automations',
+  'no_copilot',
+  'no_bulk_actions',
 ] as const;
 
 export class PermissionsService {
