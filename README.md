@@ -4,18 +4,44 @@ This package contains common utils used in the Cliengo MFE's.
 
 ## Installation
 
+El paquete se publica en npm como `cliengo-mfe-utils`. Se instala con el alias
+`@cliengo/mfe-utils` para no tener que tocar los imports:
+
 ```bash
-npx jsr install @cliengo/mfe-utils
+yarn add @cliengo/mfe-utils@npm:cliengo-mfe-utils
+```
+
+Queda así en el `package.json`, y todos los imports siguen siendo
+`@cliengo/mfe-utils/...`:
+
+```json
+  "@cliengo/mfe-utils": "npm:cliengo-mfe-utils"
 ```
 
 ## Upgrade Version
-Si quieres actualizar la versión de este paquete en tu proyecto, la forma
-más sencilla es removerlo e instalarlo de nuevo.
 
 ```bash
-npx jsr remove @cliengo/mfe-utils
-npx jsr install @cliengo/mfe-utils
+yarn upgrade @cliengo/mfe-utils
 ```
+
+## Publicar
+
+Se publica solo: cada push a `prod` dispara `.github/workflows/publish.yml`,
+que compara la `version` del `package.json` contra el registry y publica si
+falta. O sea, para publicar alcanza con bumpear la versión en el PR.
+
+Si hace falta hacerlo a mano: `npm run release`.
+
+> El script **no** se llama `publish` a propósito. npm ejecuta cualquier script
+> con ese nombre como hook de `npm publish`, así que `npm publish` disparaba una
+> publicación anidada y `--dry-run` no se propagaba.
+
+### Antes se publicaba en JSR
+
+Hasta la 0.5.34 este paquete vivía en [JSR](https://jsr.io) y se consumía vía
+`npm:@jsr/cliengo__mfe-utils` con un `.npmrc` que mapeaba el scope `@jsr`. Las
+versiones viejas siguen disponibles ahí, así que los consumidores que todavía no
+migraron no se rompen. Los nuevos releases van solo a npm.
 
 # Importante
 Para asegurar de que las versiones de react-query, launch-darkly, y react-router-dom sean las mismas
