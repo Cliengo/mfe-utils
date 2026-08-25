@@ -1,6 +1,6 @@
 {
   "name": "cliengo-mfe-utils",
-  "version": "0.5.34",
+  "version": "0.5.35",
   "description": "common utils for developing MFEs at cliengo",
   "main": "./mod.ts",
   "author": "Daniel Gomez",
@@ -21,7 +21,11 @@
     "release": "npm publish"
   },
   "dependencies": {
+    "@mui/material": "^5.16.4",
+    "@tanstack/react-query": "^5.67.1",
+    "axios": "^1.7.7",
     "launchdarkly-js-client-sdk": "^3.5.0",
+    "react": "^18.2.0",
     "react-router-dom": "^6.25.1"
   },
   "peerDependencies": {
