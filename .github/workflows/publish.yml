@@ -10,10 +10,33 @@ jobs:
 
     permissions:
       contents: read
-      id-token: write
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Publish package
-        run: yarn && npx jsr publish --allow-slow-types --allow-dirty
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      # Las versiones publicadas son inmutables, y a `prod` se mergea seguido sin
+      # tocar la version. Sin este chequeo, cada merge de ese tipo dejaba el CI en
+      # rojo por un "ya existe" que no es un error real.
+      - name: ¿Falta publicar esta version?
+        id: check
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Paquete: $NAME@$VERSION"
+          if npm view "$NAME@$VERSION" version > /dev/null 2>&1; then
+            echo "Ya publicada, no hay nada que hacer."
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publicar a npm
+        if: steps.check.outputs.publish == 'true'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,12 +1,12 @@
 {
-  "name": "mfe-utils",
-  "version": "1.0.0",
+  "name": "cliengo-mfe-utils",
+  "version": "0.5.34",
   "description": "common utils for developing MFEs at cliengo",
-  "main": "index.ts",
+  "main": "./mod.ts",
   "author": "Daniel Gomez",
   "license": "MIT",
-  "private": true,
   "exports": {
+    ".": "./mod.ts",
     "./mod": "./mod.ts",
     "./types": "./types/index.ts",
     "./hooks": "./hooks/index.ts",
@@ -18,7 +18,7 @@
     "./clients": "./clients/index.ts"
   },
   "scripts": {
-    "publish": "npx jsr publish --allow-slow-types"
+    "release": "npm publish"
   },
   "dependencies": {
     "launchdarkly-js-client-sdk": "^3.5.0",
@@ -42,5 +42,21 @@
     "axios": "^1.7.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cliengo/mfe-utils.git"
+  },
+  "files": [
+    "mod.ts",
+    "clients",
+    "hooks",
+    "ld",
+    "react-query",
+    "services",
+    "theme",
+    "types",
+    "utils",
+    "README.md"
+  ]
 }
