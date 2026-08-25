@@ -22,6 +22,12 @@ jobs:
       # Las versiones publicadas son inmutables, y a `prod` se mergea seguido sin
       # tocar la version. Sin este chequeo, cada merge de ese tipo dejaba el CI en
       # rojo por un "ya existe" que no es un error real.
+      # `prepublishOnly` corre `tsc`, así que las deps tienen que estar. Sin este
+      # paso el build tomaba un TypeScript cualquiera del entorno (uno 6.x, que
+      # ya removió `moduleResolution: node10`) en vez del 5.x que fija el lock.
+      - name: Instalar dependencias
+        run: yarn install --frozen-lockfile
+
       - name: ¿Falta publicar esta version?
         id: check
         run: |
