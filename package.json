@@ -1,23 +1,25 @@
 {
   "name": "cliengo-mfe-utils",
-  "version": "0.5.35",
+  "version": "0.5.36",
   "description": "common utils for developing MFEs at cliengo",
-  "main": "./mod.ts",
+  "main": "./mod.js",
   "author": "Daniel Gomez",
   "license": "MIT",
   "exports": {
-    ".": "./mod.ts",
-    "./mod": "./mod.ts",
-    "./types": "./types/index.ts",
-    "./hooks": "./hooks/index.ts",
-    "./utils": "./utils/index.ts",
-    "./theme": "./theme/index.ts",
-    "./services": "./services/index.ts",
-    "./ld": "./ld/index.ts",
-    "./react-query": "./react-query/index.ts",
-    "./clients": "./clients/index.ts"
+    ".": "./mod.js",
+    "./mod": "./mod.js",
+    "./types": "./types/index.js",
+    "./hooks": "./hooks/index.js",
+    "./utils": "./utils/index.js",
+    "./theme": "./theme/index.js",
+    "./services": "./services/index.js",
+    "./react-query": "./react-query/index.js",
+    "./ld": "./ld/index.js",
+    "./clients": "./clients/index.js"
   },
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "yarn build",
     "release": "npm publish"
   },
   "dependencies": {
@@ -29,23 +31,24 @@
     "react-router-dom": "^6.25.1"
   },
   "peerDependencies": {
+    "@mui/material": "^5.16.4",
     "@tanstack/react-query": "^5.67.1",
+    "axios": "^1.7.7",
     "launchdarkly-js-client-sdk": "^3.5.0",
-    "react-router-dom": "^6.25.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "axios": "^1.7.7",
-    "@mui/material": "^5.16.4"
+    "react-router-dom": "^6.25.1"
   },
   "devDependencies": {
     "@mui/material": "^5.16.4",
     "@tanstack/react-query": "^5.67.1",
-    "launchdarkly-js-client-sdk": "^3.5.0",
-    "react-router-dom": "^6.25.1",
     "@types/node": "^22.7.9",
     "axios": "^1.7.7",
+    "launchdarkly-js-client-sdk": "^3.5.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.25.1",
+    "typescript": "^5.6.0"
   },
   "repository": {
     "type": "git",
@@ -53,6 +56,8 @@
   },
   "files": [
     "mod.ts",
+    "mod.js",
+    "mod.js.map",
     "clients",
     "hooks",
     "ld",
