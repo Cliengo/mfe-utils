@@ -30,7 +30,7 @@ export type Permissions =
  * they did before.
  *
  * Never require one of these to be present in order to allow something, and
- * always let `isAdmin()` short-circuit first: admins are never restricted.
+ * always let the admin check short-circuit first: admins are never restricted.
  * Read them through `PermissionsService.isRestricted()`.
  */
 export type Restrictions =
@@ -79,9 +79,25 @@ export class PermissionsService {
    *
    * Deny-by-presence: a user with no restriction keys is *not* restricted, which
    * is what keeps existing accounts behaving as they always have.
+   *
+   * ⚠️ Chequea `admin` a mano en vez de llamar a `isAdmin()`, a propósito
+   * (roadmap#1580). `isAdmin()` también acepta `reseller_admin`, y ese permiso
+   * **no está persistido**: core lo agrega en runtime cuando la request trae una
+   * sesión del panel de admin — o sea, en toda sesión impersonada
+   * (`UserApiController:119` y `:132`, vía `LeadakiSecurity.isWhitelabelAdmin()`).
+   *
+   * Con `isAdmin()` acá, cualquier sesión impersonada veía **todas** las
+   * restricciones como inactivas: Copilot, exportar contactos, crear contactos y
+   * la sección de Automatizaciones. Es exactamente como QA y CS miran una
+   * cuenta, así que la feature parecía no funcionar. kanban no se vio afectado
+   * porque su copia chequea solo `admin`, y esta ahora coincide con esa.
+   *
+   * `isAdmin()` sigue igual para el resto de los call sites: un whitelabel admin
+   * sí tiene que ver la UI de admin. Lo único que no hereda es la exención de
+   * restricciones.
    */
   public isRestricted(restriction: Restrictions): boolean {
-    if (this.isAdmin()) {
+    if (this.permissions.has('admin')) {
       return false;
     }
     return this.permissions.has(restriction);
